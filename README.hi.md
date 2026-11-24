@@ -18,6 +18,10 @@ Trending topic → research वाली script → animated 9:16 video → YouT
 
 </div>
 
+**▶ आवाज़ के साथ देखें** (voice, music और sound effects सब आपके PC पर बनते हैं):
+
+https://github.com/user-attachments/assets/d0f3a935-226e-487e-85a5-0124d71a7363
+
 ---
 
 ## शुरू कैसे करें

@@ -27,6 +27,10 @@ You approve from Telegram. It handles everything else, in any language, on your 
 
 </div>
 
+**▶ Watch it with sound** (voice, music and sound effects are all generated on your PC):
+
+https://github.com/user-attachments/assets/d0f3a935-226e-487e-85a5-0124d71a7363
+
 ---
 
 ## Start here
