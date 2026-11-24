@@ -55,7 +55,7 @@ jobs:
       - name: Tests
         run: for t in tests/test_*.py; do echo "::group::$t"; python "$t"; echo "::endgroup::"; done
       - name: Fuzz the renderer
-        run: python tests/fuzz_render.py
+        run: python tests/fuzz_render.py 2   # ~4 min per render on a free runner; run the full 6 locally
       - uses: actions/upload-artifact@v4
         if: always()
         with:
