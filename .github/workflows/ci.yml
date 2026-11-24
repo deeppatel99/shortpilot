@@ -4,10 +4,16 @@ name: CI
 on:
   push:
     branches: [main]
+    paths-ignore: ["**.md", "docs/**"]
   pull_request:
+    paths-ignore: ["**.md", "docs/**"]
 
 permissions:
   contents: read
+
+concurrency:                 # a newer push cancels the older run of the same branch
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
@@ -23,7 +29,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 45      # apt mirrors are sometimes slow: FFmpeg alone has taken 15 min
+    timeout-minutes: 30      # ~5 min normally; apt mirrors are sometimes slow (FFmpeg alone has taken 15 min)
     env:
       PYTHONUTF8: "1"
     steps:
@@ -54,11 +60,31 @@ jobs:
         run: python autopilot.py demo
       - name: Tests
         run: for t in tests/test_*.py; do echo "::group::$t"; python "$t"; echo "::endgroup::"; done
-      - name: Fuzz the renderer
-        run: python tests/fuzz_render.py 2   # ~4 min per render on a free runner; run the full 6 locally
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: demo-video
           path: channels/_template/data/videos/demo.mp4
           if-no-files-found: ignore
+
+  # Random episodes, every frame drawn. No Chromium or voice model needed, so it runs beside `test`,
+  # split over 3 seeds (2 episodes each: 6 in total, like a local run's default).
+  fuzz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [1, 2, 3]
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -q -r requirements.txt
+      - name: FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: python tests/fuzz_render.py 2 ${{ matrix.seed }}
