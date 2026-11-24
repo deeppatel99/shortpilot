@@ -14,5 +14,8 @@ All notable changes to this project are documented here. The format follows
 - A free cloud mode on GitHub Actions + Cloudflare Workers, set up with `cloud-setup`.
 - Multi-channel support: `new-channel`, with channel packs in `channels/<name>/`.
 - `demo` command: renders a sample video without any keys.
-- A Claude Code plugin and the `shortpilot` skill.
+- A Claude Code plugin and the `shortpilot` skill, also installable with `npx skills add` for Codex, Cursor,
+  Gemini CLI and other Agent Skills tools.
+- `setup.bat`: double-click install for Windows that ends by playing the demo video.
+- A "Start here" path for non-coders, and a Hindi README (`README.hi.md`).
 - An offline test suite with fakes for Claude, Telegram, Instagram and YouTube.

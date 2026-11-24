@@ -3,15 +3,19 @@
 From zero to your first video approved in Telegram, in about 15 minutes. The commands below use macOS/Linux
 paths. On Windows, use `.venv\Scripts\python.exe` instead of `.venv/bin/python`.
 
+> **Not a coder?** Open [Claude Code](https://claude.com/claude-code) in this folder and say *"follow
+> docs/QUICKSTART.md with me"*. It runs every command below and tells you when you need to click something.
+> On Windows you can also do steps 1 and 2 by double-clicking `setup.bat`.
+
 ## 1. Install (5 min)
 
 You need Git, and also FFmpeg on macOS/Linux (`brew install ffmpeg` / `sudo apt install ffmpeg`). The setup script
 handles everything else.
 
 ```bash
-git clone https://github.com/OWNER/shortpilot && cd shortpilot
+git clone https://github.com/deeppatel99/shortpilot && cd shortpilot
 bash setup.sh                                          # macOS / Linux
-powershell -ExecutionPolicy Bypass -File .\setup.ps1   # Windows (also installs Python 3.12 and FFmpeg)
+powershell -ExecutionPolicy Bypass -File .\setup.ps1   # Windows (also installs Python 3.12 and FFmpeg), or double-click setup.bat
 ```
 
 It creates `.venv`, installs the Python packages and Chromium, and downloads the Kokoro voice model (~350 MB) into

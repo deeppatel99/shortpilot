@@ -12,7 +12,7 @@ commands from the ShortPilot project root, the folder that contains `autopilot.p
 ## 0. Find or get the project
 
 1. If the current folder (or a parent) has `autopilot.py` and `channels/`, use it.
-2. Otherwise ask where to put it, then run `git clone https://github.com/OWNER/shortpilot` and `cd` into it.
+2. Otherwise ask where to put it, then run `git clone https://github.com/deeppatel99/shortpilot` and `cd` into it.
 
 Python is `.venv/bin/python` (macOS/Linux) or `.venv\Scripts\python.exe` (Windows). Call it `PY` below.
 If `.venv` is missing, run the setup first (step 1).

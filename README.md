@@ -8,13 +8,16 @@
 Trending topic → researched script → animated 9:16 video → YouTube Shorts, Instagram Reels and Facebook Reels.<br>
 You approve from Telegram. It handles everything else, in any language, on your PC or free in the cloud.
 
-[![CI](https://github.com/OWNER/shortpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/shortpilot/actions/workflows/ci.yml)
+[![CI](https://github.com/deeppatel99/shortpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/deeppatel99/shortpilot/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.10–3.13](https://img.shields.io/badge/python-3.10–3.13-3776AB.svg?logo=python&logoColor=white)](https://www.python.org)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757.svg)](#use-it-from-claude-code)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Codex%20·%20Cursor%20·%20Gemini%20CLI-6E56CF.svg)](#other-agents-codex-cursor-gemini-cli)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[Quickstart](#quickstart) · [Features](#features) · [How it works](#how-it-works) · [Docs](#documentation) · [FAQ](#faq)
+[Start here](#start-here) · [Quickstart](#quickstart) · [Features](#features) · [How it works](#how-it-works) · [Docs](#documentation) · [FAQ](#faq)
+
+**English** · [हिन्दी](README.hi.md)
 
 <img src="docs/media/demo.gif" width="270" alt="Demo short rendered by ShortPilot (notebook look)">
 &nbsp;&nbsp;
@@ -25,6 +28,23 @@ You approve from Telegram. It handles everything else, in any language, on your 
 </div>
 
 ---
+
+## Start here
+
+**Not a coder?** Pick one. Both end with a demo video playing on your screen.
+
+1. **Let Claude set it up.** Install [Claude Code](https://claude.com/claude-code) (desktop app or terminal), open
+   it in an empty folder and paste:
+
+   > Install ShortPilot from https://github.com/deeppatel99/shortpilot, set it up and render the demo video.
+
+   Claude downloads it, runs the setup, fixes anything missing and tells you where the video is. Afterwards just
+   keep talking to it: *"make my channel about space facts in Hindi"*.
+2. **Windows: double-click.** On this page click **Code → Download ZIP**, unzip it, and double-click
+   **`setup.bat`**. If Windows asks whether to run it, click **Run** (or **More info → Run anyway**). In about
+   10 minutes the demo video opens.
+
+**Comfortable with a terminal?** Go to [Quickstart](#quickstart).
 
 ## Why ShortPilot
 
@@ -54,11 +74,11 @@ video posts itself at your publish time.
 ## Quickstart
 
 ```bash
-git clone https://github.com/OWNER/shortpilot && cd shortpilot
+git clone https://github.com/deeppatel99/shortpilot && cd shortpilot
 
 # 1) install: Python venv, Chromium, FFmpeg check, Kokoro voice model (~350 MB)
 bash setup.sh                                          # macOS / Linux
-powershell -ExecutionPolicy Bypass -File .\setup.ps1   # Windows
+powershell -ExecutionPolicy Bypass -File .\setup.ps1   # Windows (or double-click setup.bat)
 
 # 2) see it work: renders a demo short, no keys needed
 .venv/bin/python autopilot.py demo                     # Windows: .venv\Scripts\python.exe autopilot.py demo
@@ -78,7 +98,7 @@ posting, follow **[docs/QUICKSTART.md](docs/QUICKSTART.md)** (about 15 minutes) 
 ShortPilot ships as a Claude Code plugin with a skill that knows the whole pipeline:
 
 ```text
-/plugin marketplace add OWNER/shortpilot
+/plugin marketplace add deeppatel99/shortpilot
 /plugin install shortpilot@shortpilot
 ```
 
@@ -89,6 +109,15 @@ Then just ask:
 
 Claude reads [`skills/shortpilot/SKILL.md`](skills/shortpilot/SKILL.md), runs the right commands, edits
 `channel.json` for you and checks each step.
+
+### Other agents (Codex, Cursor, Gemini CLI…)
+
+The skill follows the open [Agent Skills](https://agentskills.io) format, so any agent that supports skills can
+drive ShortPilot the same way:
+
+```bash
+npx skills add deeppatel99/shortpilot
+```
 
 ## How it works
 
@@ -232,6 +261,6 @@ fonts under their own open licences in [`engine/assets/fonts`](engine/assets/fon
 
 **If ShortPilot saves you time, a ⭐ helps other creators find it.**
 
-[![Star History Chart](https://api.star-history.com/svg?repos=OWNER/shortpilot&type=Date)](https://star-history.com/#OWNER/shortpilot&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=deeppatel99/shortpilot&type=Date)](https://star-history.com/#deeppatel99/shortpilot&Date)
 
 </div>

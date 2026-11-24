@@ -5,7 +5,7 @@ Thanks for helping! Bug fixes, new visual types, stages, voices, languages and p
 ## Development setup
 
 ```bash
-git clone https://github.com/OWNER/shortpilot && cd shortpilot
+git clone https://github.com/deeppatel99/shortpilot && cd shortpilot
 bash setup.sh                       # Windows: powershell -ExecutionPolicy Bypass -File .\setup.ps1
 .venv/bin/python autopilot.py demo  # renders channels/_template/data/videos/demo.mp4
 ```
