@@ -1,0 +1,13 @@
+{
+  "name": "shortpilot",
+  "owner": { "name": "ShortPilot contributors" },
+  "metadata": { "description": "ShortPilot: an automated faceless short-video channel, driven from Claude Code." },
+  "plugins": [
+    {
+      "name": "shortpilot",
+      "source": "./",
+      "description": "Set up, run and troubleshoot an automated YouTube Shorts / Instagram Reels channel.",
+      "category": "productivity"
+    }
+  ]
+}

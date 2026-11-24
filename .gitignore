@@ -1,0 +1,28 @@
+# keys and logins: never commit
+.env
+client_secret*.json
+token*.json
+
+# local environment and downloads
+.venv/
+models/
+__pycache__/
+*.pyc
+.ruff_cache/
+
+# per-channel runtime data
+data/
+episodes/
+state/
+out/
+engine/.tts_cache/
+*.mp4
+channels/*/footage/*
+!channels/*/footage/README.txt
+.channel
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

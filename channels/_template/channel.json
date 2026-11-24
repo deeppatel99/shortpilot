@@ -1,0 +1,124 @@
+{
+  "channel": {
+    "name": "My Channel",
+    "handle": "@mychannel",
+    "brand": "MY CHANNEL",
+    "tagline": "one question, answered in 40 seconds",
+    "niche": "Short explainers that answer one surprising question about everyday life, science or technology in under 40 seconds, with one clear takeaway",
+    "audience": "curious people scrolling on their phones; no expert knowledge assumed",
+    "default_tags": [
+      "did you know",
+      "explained",
+      "shorts"
+    ],
+    "hashtags": [
+      "#didyouknow",
+      "#explained"
+    ],
+    "disclaimer": "AI voice-over. Script researched and reviewed by a human.",
+    "yt_footer": "",
+    "ig_footer": "",
+    "stage": {
+      "handle": "@mychannel",
+      "tagline": "one question, answered in 40 seconds",
+      "brand_a": "MY",
+      "brand_b": "CHANNEL"
+    }
+  },
+  "content": {
+    "language": "en-US",
+    "categories": {
+      "how_it_works": "how an everyday object or app really works (microwave, GPS, noise-cancelling, QR codes)",
+      "myth_check": "a popular belief tested against the evidence, with a clear verdict",
+      "body_brain": "one surprising fact about the human body, sleep, food or the brain, with a practical tip",
+      "tech_tip": "one hidden phone, laptop or app setting that saves time, money or privacy",
+      "news_explained": "a science or tech story in the news today, and what it means for the viewer"
+    },
+    "evergreen_flow": [
+      "how_it_works",
+      "myth_check",
+      "body_brain",
+      "tech_tip"
+    ],
+    "series": {
+      "how_it_works": "HOW IT WORKS",
+      "myth_check": "MYTH OR FACT?",
+      "body_brain": "YOUR BODY",
+      "tech_tip": "HIDDEN SETTING",
+      "news_explained": "IN THE NEWS"
+    },
+    "cta": "Comment below",
+    "texts": {
+      "share_line": "Send this to a friend who still believes the myth 👇",
+      "comment_question": "Did you know this? Yes or no 👇"
+    }
+  },
+  "schedule": {
+    "utc_offset": "+00:00",
+    "scout_at": "08:00",
+    "publish_at": "12:00",
+    "videos_per_day": 1
+  },
+  "llm": {
+    "writer": "claude_cli",
+    "ranker": "claude_cli",
+    "researcher": "",
+    "fallback": "gemini",
+    "claude_model": "",
+    "gemini_model": "gemini-flash-latest",
+    "anthropic_model": "claude-sonnet-5-5"
+  },
+  "voice": {
+    "tts": "kokoro",
+    "voice": "af_heart",
+    "speed": 1.1,
+    "azure_voice": "en-US-AvaMultilingualNeural",
+    "guest_voice": {}
+  },
+  "render": {
+    "engine": "html",
+    "stage": "stage",
+    "jobs": 0,
+    "cast_names": {
+      "host": "Alex",
+      "guest": "Sam"
+    }
+  },
+  "trends": {
+    "geo": "US",
+    "google_trends": true,
+    "youtube_trending": true,
+    "youtube_category": "28",
+    "news_days": 2,
+    "news_queries": [
+      "science discovery",
+      "new study finds",
+      "smartphone feature",
+      "health myth",
+      "space news"
+    ],
+    "world_news_queries": [],
+    "github_queries": [],
+    "hacker_news": [
+      "front_page"
+    ]
+  },
+  "publish": {
+    "instagram": true,
+    "youtube_mode": "auto",
+    "auto": false,
+    "auto_preview": true,
+    "ai_label": true
+  },
+  "cloud": {
+    "repo": "mychannel-bot",
+    "worker": "mychannel-webhook",
+    "site": {
+      "publisher": "My Channel",
+      "tagline": "One question, answered in 40 seconds.",
+      "about": "Short videos that explain the surprising answers behind everyday questions.",
+      "instagram": "",
+      "contact_email": ""
+    }
+  }
+}

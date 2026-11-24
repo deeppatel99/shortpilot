@@ -1,0 +1,251 @@
+{
+ "title": "Why your phone dies at 20% in the cold #shorts",
+ "topic": "Why phone batteries die faster in cold weather",
+ "lang": "en-US",
+ "tts": "kokoro",
+ "voice": "af_heart",
+ "speed": 1.1,
+ "cta": "Comment below",
+ "category": "how_it_works",
+ "format": "explainer",
+ "sources": [
+  {
+   "title": "Apple — Batteries: Maximizing Performance",
+   "url": "https://www.apple.com/batteries/maximizing-performance/"
+  }
+ ],
+ "cover": [
+  "Phone died",
+  "at *20%*?"
+ ],
+ "cover_tag": "TIP",
+ "yt_description": "Why your phone dies in the cold\n\n✅ Cold slows the battery's chemistry, so the charge reads lower than it is\n✅ It comes back once the phone warms up\n\nSources:\n• Apple — Batteries: Maximizing Performance — https://www.apple.com/batteries/maximizing-performance/\n\n#didyouknow #science",
+ "tags": [
+  "phone dies in cold",
+  "battery cold weather",
+  "why phone battery drains",
+  "iphone cold",
+  "battery tips"
+ ],
+ "ig_caption": "Your phone died at 20% in the cold? It wasn't empty 🥶\n\n✅ Cold slows the battery's chemistry\n✅ Warm it up and the charge comes back\n⚠️ Don't charge it while it's freezing\n\n👉 Send this to a friend who skis\n\nphone battery cold · battery tips · how batteries work\n#didyouknow #science #battery",
+ "pinned_comment": "Has the cold ever killed your phone? Yes or no 👇",
+ "storyboard": [
+  "guest: my phone died at 20% (hook)",
+  "host: it wasn't empty, it was cold — stay for the fix",
+  "myth vs fact: cold slows the chemistry, it is temporary",
+  "versus: pocket vs jacket outside, Apple's comfort zone",
+  "3 steps + share line",
+  "comment question + loop"
+ ],
+ "cast": [
+  "host",
+  "guest"
+ ],
+ "scenes": [
+  {
+   "accent": "#FF4D4D",
+   "card": [
+    "Cold = *dead*?"
+   ],
+   "visual": {
+    "type": "counter",
+    "label": "Battery in the snow",
+    "to": 20,
+    "suffix": "%",
+    "format": "intl"
+   },
+   "mood": {
+    "host": "think",
+    "guest": "shock"
+   },
+   "lines": [
+    {
+     "who": "guest",
+     "tts": "My phone died at twenty percent!",
+     "cap": "My phone died at 20%!",
+     "hi": [
+      "20%!"
+     ]
+    },
+    {
+     "who": "host",
+     "tts": "It wasn't empty. It was cold.",
+     "cap": "It wasn't empty. It was cold.",
+     "hi": [
+      "cold."
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#B36BFF",
+   "card": [
+    "Wait, *what*?"
+   ],
+   "visual": {
+    "type": "big_emoji",
+    "emoji": "🥶"
+   },
+   "lines": [
+    {
+     "who": "guest",
+     "tts": "The cold eats my battery?",
+     "cap": "The cold eats my battery?",
+     "hi": [
+      "battery?"
+     ]
+    },
+    {
+     "who": "host",
+     "tts": "It does not eat it. It hides it. Easy fix.",
+     "cap": "It does not eat it. It hides it. Easy fix.",
+     "hi": [
+      "hides"
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#4DA3FF",
+   "card": [
+    "*Myth* or fact?"
+   ],
+   "visual": {
+    "type": "myth_fact",
+    "claim": "Cold drains your battery for good",
+    "fact": "It's temporary: warmth brings it back"
+   },
+   "lines": [
+    {
+     "who": "host",
+     "tts": "Your battery runs on chemistry.",
+     "cap": "Your battery runs on chemistry.",
+     "hi": [
+      "chemistry."
+     ]
+    },
+    {
+     "who": "host",
+     "tts": "Cold slows it down, so the charge looks lower.",
+     "cap": "Cold slows it down, so the charge looks lower.",
+     "hi": [
+      "lower."
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#FFB020",
+   "card": [
+    "Pocket *wins*"
+   ],
+   "visual": {
+    "type": "versus",
+    "left": {
+     "label": "Inner pocket",
+     "value": "warm"
+    },
+    "right": {
+     "label": "Outside",
+     "value": "freezing"
+    },
+    "winner": "left"
+   },
+   "lines": [
+    {
+     "who": "host",
+     "tts": "Apple says phones are happiest around sixty two to seventy two degrees.",
+     "cap": "Apple: happiest at 62–72°F",
+     "hi": [
+      "62–72°F"
+     ]
+    },
+    {
+     "who": "guest",
+     "tts": "So my pocket beats my jacket?",
+     "cap": "So my pocket beats my jacket?",
+     "hi": [
+      "pocket"
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#2BD67B",
+   "card": [
+    "Just *3* steps"
+   ],
+   "visual": {
+    "type": "checklist",
+    "items": [
+     "Inner pocket",
+     "Warm it up",
+     "Then charge"
+    ]
+   },
+   "lines": [
+    {
+     "who": "host",
+     "tts": "Keep it in an inner pocket.",
+     "cap": "Keep it in an inner pocket.",
+     "hi": [
+      "inner"
+     ]
+    },
+    {
+     "who": "host",
+     "tts": "Let a cold phone warm up first.",
+     "cap": "Let a cold phone warm up first.",
+     "hi": [
+      "warm"
+     ]
+    },
+    {
+     "who": "host",
+     "tts": "Then plug it in.",
+     "cap": "Then plug it in.",
+     "hi": [
+      "plug"
+     ]
+    },
+    {
+     "who": "guest",
+     "tts": "Send this to the friend who skis.",
+     "cap": "Send this to the friend who skis.",
+     "hi": [
+      "skis."
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#B36BFF",
+   "card": [
+    "*Yes* or no?"
+   ],
+   "visual": {
+    "type": "comment",
+    "text": "Cold killed my phone: ___"
+   },
+   "lines": [
+    {
+     "who": "host",
+     "tts": "Has the cold ever killed your phone? Yes or no.",
+     "cap": "Has the cold ever killed your phone? Yes or no.",
+     "hi": [
+      "Yes",
+      "no."
+     ]
+    },
+    {
+     "who": "guest",
+     "tts": "Because mine died at twenty percent.",
+     "cap": "Because mine died at 20%.",
+     "hi": [
+      "20%."
+     ]
+    }
+   ]
+  }
+ ]
+}

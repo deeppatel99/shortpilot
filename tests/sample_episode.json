@@ -1,0 +1,152 @@
+{
+ "title": "Phone battery dies in the cold? #shorts",
+ "topic": "Phone battery in the cold",
+ "sources": [
+  {
+   "title": "Sample source",
+   "url": "https://example.org"
+  }
+ ],
+ "yt_description": "Test description",
+ "ig_caption": "Test caption #mychannel",
+ "pinned_comment": "Has it happened to you?",
+ "scenes": [
+  {
+   "accent": "#FF4D4D",
+   "card": [
+    "Cold = *dead*?"
+   ],
+   "visual": {
+    "type": "headline",
+    "label": "ALERT",
+    "text": "Phones die faster in the cold"
+   },
+   "lines": [
+    {
+     "tts": "Your phone died at twenty percent?",
+     "cap": "Your phone died at 20%?",
+     "hi": [
+      "20%?"
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#FF4D4D",
+   "card": [
+    "Low *battery*"
+   ],
+   "visual": {
+    "type": "phone_msg",
+    "app": "Messages",
+    "sender": "Phone",
+    "text": "Battery 20%. Shutting down.",
+    "stamp": "COLD"
+   },
+   "lines": [
+    {
+     "tts": "It says twenty percent,",
+     "cap": "It says 20%,",
+     "hi": [
+      "20%,"
+     ]
+    },
+    {
+     "tts": "then it shuts down.",
+     "cap": "then it shuts down.",
+     "hi": [
+      "down."
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#2BD67B",
+   "card": [
+    "*Myth* or fact?"
+   ],
+   "visual": {
+    "type": "myth_fact",
+    "claim": "Cold kills the battery",
+    "fact": "Cold only hides the charge"
+   },
+   "lines": [
+    {
+     "tts": "Is the battery broken?",
+     "cap": "Is the battery broken?",
+     "hi": [
+      "broken?"
+     ]
+    },
+    {
+     "tts": "No, it is just cold.",
+     "cap": "No, it is just cold.",
+     "hi": [
+      "cold."
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#2BD67B",
+   "card": [
+    "*3* steps"
+   ],
+   "visual": {
+    "type": "checklist",
+    "items": [
+     "Inner pocket",
+     "Warm it up",
+     "Then charge"
+    ]
+   },
+   "lines": [
+    {
+     "tts": "Inner pocket,",
+     "cap": "Inner pocket,",
+     "hi": [
+      "pocket,"
+     ]
+    },
+    {
+     "tts": "warm it up,",
+     "cap": "warm it up,",
+     "hi": [
+      "warm"
+     ]
+    },
+    {
+     "tts": "then charge it.",
+     "cap": "then charge it.",
+     "hi": [
+      "charge"
+     ]
+    }
+   ]
+  },
+  {
+   "accent": "#B36BFF",
+   "card": [
+    "Yes or *no*?"
+   ],
+   "visual": {
+    "type": "comment",
+    "text": "Mine died at ___"
+   },
+   "lines": [
+    {
+     "tts": "Has this happened to you? Comment below.",
+     "cap": "Has this happened to you? Comment below.",
+     "hi": [
+      "Comment"
+     ]
+    },
+    {
+     "tts": "Because next time...",
+     "cap": "Because next time...",
+     "hi": []
+    }
+   ]
+  }
+ ]
+}

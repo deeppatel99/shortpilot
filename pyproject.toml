@@ -1,0 +1,29 @@
+[project]
+name = "shortpilot"
+version = "1.0.0"
+description = "Faceless Shorts on autopilot: trend -> script -> 9:16 video -> YouTube Shorts, Instagram & Facebook Reels"
+license = "MIT"
+requires-python = ">=3.10"
+
+# Lint + format:  .venv\Scripts\python.exe -m ruff check .  &&  .venv\Scripts\python.exe -m ruff format .
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = [".venv", "data", "models", "state"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "I", "UP"]
+ignore = [
+    "E741",   # short names like l / I are fine in the math-heavy renderer
+    "B008",   # function calls in defaults
+    "UP015",  # explicit open(..., "r") modes
+    "E501",   # long strings (user-facing messages) are left whole; the formatter wraps code
+    "E731",   # small named lambdas are clearer than defs here
+    "B905",   # zip(strict=) - lengths are equal by construction
+    "B007",   # unused loop variables in tuple unpacking
+    "B023",   # reviewed: loop-local lambdas are called inside the same iteration
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]   # tests set env vars before importing the app
+"engine/make_short.py" = ["E402"]   # thread limits must be set before numpy is imported

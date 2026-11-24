@@ -1,0 +1,10 @@
+{
+  "name": "shortpilot",
+  "version": "1.0.0",
+  "description": "Faceless Shorts/Reels on autopilot: trending topic, researched script, animated 9:16 video, and publishing to YouTube, Instagram and Facebook, in any language.",
+  "author": { "name": "ShortPilot contributors" },
+  "homepage": "https://github.com/OWNER/shortpilot",
+  "repository": "https://github.com/OWNER/shortpilot",
+  "license": "MIT",
+  "keywords": ["youtube-shorts", "instagram-reels", "faceless", "video-automation", "tts", "content-creation"]
+}

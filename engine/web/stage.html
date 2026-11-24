@@ -1,0 +1,452 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Baloo"; src: url("__ASSETS__/fonts/Baloo2-Variable.ttf"); font-weight: 400 800; }
+@font-face { font-family: "Kalam"; src: url("__ASSETS__/fonts/Kalam-Bold.ttf"); }
+@font-face { font-family: "Emoji"; src: url("__ASSETS__/fonts/NotoColorEmoji.ttf"); }
+@font-face { font-family: "Inter"; src: url("__ASSETS__/fonts/InterDisplay-Black.otf"); font-weight: 900; }
+:root {
+  --paper: #FBFAF6; --rule: #D3DFF1; --margin: #EBA6A1;
+  --ink: #1E2F7A; --ink-soft: #5B6BA8; --marker: #FFE14D;
+  --red: #D93A2B; --green: #1E9E5A; --orange: #E8871E; --purple: #7A3FC4;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--paper); }
+body { font-family: "Baloo", "Emoji", sans-serif; color: var(--ink); }
+#paper { position: absolute; inset: -200px 0 -760px 0;  /* extra below: the page scrolls up 64px per scene */
+  background-image: repeating-linear-gradient(to bottom, transparent 0 62px, var(--rule) 62px 65px); }
+#margin { position: absolute; top: 0; bottom: 0; left: 108px; width: 3px; background: var(--margin);
+  box-shadow: 7px 0 0 var(--margin); }
+/* channel mark: logo + brand_a white / brand_b yellow on navy, Inter Display Black (channel.json channel.stage) */
+#brand { position: absolute; top: 236px; right: 100px; display: flex; align-items: center; gap: 12px;
+  padding: 8px 24px 8px 10px; border-radius: 40px; background: #0A0D1A; color: #fff;
+  font: 900 34px/1 "Inter"; letter-spacing: .5px; }
+#brand img { width: 52px; height: 52px; }
+#brand b { color: #FFE24D; font-weight: 900; }
+#cam { position: absolute; inset: 0; transform-origin: 540px 760px; isolation: isolate; }  /* keeps .hl marks above the paper */
+/* the cast sits behind a desk: grounds them and hides where the drawings are cut off */
+/* the page's own paper, a shade warmer, one colour for the whole video: a dark slab (black or navy) pulled the eye
+   away from the visual. The handle sits high, above the caption overlay the apps draw on phones */
+#desk { position: absolute; left: -60px; right: -60px; top: 1545px; bottom: -200px; background: #F2EEE3;
+  border-top: 6px solid var(--ink); display: flex; justify-content: center; padding-top: 34px; }
+#desk .handle { height: 74px; display: flex; align-items: center; gap: 18px; font: 900 34px/1 "Inter"; color: var(--ink); }
+#desk .handle i { font: 34px "Kalam"; font-style: normal; color: var(--ink-soft); }
+#desk .handle b { padding: 12px 26px; border-radius: 40px; background: var(--ink); color: #fff; font-weight: 900; }
+/* a soft card in the scene's colour behind the visual, so each scene has its own colour */
+.backdrop { position: absolute; left: 70px; width: 940px; border-radius: 44px 38px 48px 34px; transform: rotate(-1.2deg);
+  background: color-mix(in srgb, var(--accent) 16%, #FFFDF8); border: 6px solid var(--ink);
+  box-shadow: 16px 16px 0 var(--ink); }
+/* series label + scene progress, top left (viewers stay to finish a count they can see) */
+#series { position: absolute; top: 236px; left: 130px; height: 68px; display: flex; align-items: center; gap: 14px;
+  padding: 0 22px; border-radius: 40px; background: #fff; border: 5px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  font: 900 26px/1 "Inter"; letter-spacing: 1px; color: var(--ink); }
+#series .segs { display: flex; gap: 5px; }
+#series .seg { width: 16px; height: 10px; border-radius: 5px; background: var(--rule); }
+#series .seg.on { background: var(--accent); }
+#doodles { position: absolute; inset: 0; pointer-events: none; }
+#doodles svg { position: absolute; overflow: visible; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.head { position: absolute; left: 150px; top: 330px; width: 840px; font-weight: 800; font-size: 76px;
+  line-height: 1.04; letter-spacing: -1px; }
+.head .row { display: block; }
+.hl { position: relative; white-space: nowrap; padding: 0 10px; margin: 0 -10px; }
+.hl::before { content: ""; position: absolute; left: 0; right: 0; top: 18%; bottom: 6%; z-index: -1;
+  background: var(--marker); border-radius: 10px 4px 12px 6px; transform: scaleX(var(--p, 0)) skewX(-6deg);
+  transform-origin: left center; }
+.vis { position: absolute; left: 90px; top: 530px; width: 900px; height: 560px; display: flex;
+  align-items: center; justify-content: center; }
+.kin { position: absolute; left: 130px; right: 110px; top: 470px; font-weight: 800; font-size: 138px;
+  line-height: 1.02; letter-spacing: -2px; }
+.kin span { display: inline-block; margin-right: 26px; }
+/* cards */
+.card { background: #fff; border: 5px solid var(--ink); border-radius: 30px 26px 34px 24px;
+  box-shadow: 10px 12px 0 rgba(30, 47, 122, .14); }
+.note { font: 34px "Kalam"; color: var(--ink-soft); }
+.tape { position: absolute; width: 140px; height: 44px; background: rgba(255, 225, 77, .75); }
+.stamp { position: absolute; font-weight: 800; font-size: 64px; color: var(--red); border: 7px solid var(--red);
+  border-radius: 16px; padding: 0 22px; transform: rotate(-12deg); background: rgba(255, 255, 255, .7); }
+.big { font-weight: 800; font-size: 170px; line-height: 1; letter-spacing: -4px; }
+.emoji { font-family: "Emoji"; font-size: 230px; line-height: 1; }
+.phone { position: relative; width: 430px; height: 560px; border: 7px solid var(--ink); border-radius: 56px 56px 0 0;
+  border-bottom: 0; background: #fff; padding: 64px 26px 0; overflow: hidden; }
+.phone::before { content: ""; position: absolute; top: 20px; left: 50%; width: 110px; height: 18px; margin-left: -55px;
+  border-radius: 10px; background: var(--ink); }
+.msg { background: #EEF2FB; border-radius: 26px 26px 26px 8px; padding: 18px 22px; font-size: 34px; line-height: 1.2;
+  font-weight: 600; margin-bottom: 18px; }
+.msg .from { font-size: 24px; font-weight: 700; color: var(--ink-soft); display: block; margin-bottom: 4px; }
+.notif { background: #F3F5FB; border-radius: 22px; padding: 14px 18px; margin-bottom: 14px; font-size: 27px; line-height: 1.2; }
+.notif b { display: block; font-size: 25px; }
+.row2 { display: flex; gap: 40px; align-items: stretch; }
+.side { width: 390px; padding: 34px 28px; text-align: center; position: relative; }
+.side .lbl { font: 36px "Kalam"; color: var(--ink-soft); }
+.side .val { font-weight: 800; font-size: 64px; line-height: 1.05; margin-top: 10px; }
+.vs { position: absolute; left: 50%; top: 50%; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%;
+  background: var(--marker); border: 5px solid var(--ink); display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 46px; }
+.list { width: 860px; }
+.item { display: flex; align-items: center; gap: 28px; font-weight: 700; font-size: 56px; line-height: 1.1; padding: 16px 0;
+  border-bottom: 3px dashed var(--rule); }
+.box { flex: none; width: 62px; height: 62px; border: 6px solid var(--ink); border-radius: 12px; position: relative; }
+.tick { position: absolute; left: 6px; top: -22px; font-size: 76px; font-weight: 800; color: var(--green); }
+/* settings screen: the real place the viewer has to go, the target toggle flips on with line 2 */
+.srow { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 6px;
+  border-bottom: 3px solid #EEF2FB; font-weight: 700; font-size: 34px; line-height: 1.1; }
+.srow.hit::before { content: ""; position: absolute; inset: 6px -14px; z-index: -1; background: var(--marker); border-radius: 14px; }
+.tg { flex: none; position: relative; width: 96px; height: 54px; border-radius: 27px; background: #C9CFE3; }
+.tg::after { content: ""; position: absolute; left: 6px; top: 6px; width: 42px; height: 42px; border-radius: 50%;
+  background: #fff; transform: translateX(calc(var(--on, 0) * 42px)); }
+.term { width: 860px; background: #1B2140; color: #9FF0B6; border-radius: 24px; padding: 30px 36px 40px;
+  font: 600 38px/1.45 "Consolas", monospace; }
+.term .bar { color: #8790B8; font-size: 26px; margin-bottom: 14px; }
+.bars { width: 860px; }
+.bar-row { display: flex; align-items: center; gap: 20px; margin: 18px 0; }
+.bar-row .lab { width: 240px; text-align: right; font-weight: 700; font-size: 38px; }
+.bar-row .fill { height: 70px; border-radius: 10px 18px 14px 8px; background: var(--ink); }
+.bar-row .num { font-weight: 800; font-size: 44px; }
+.polaroid { background: #fff; padding: 22px 22px 70px; transform: rotate(-3deg);
+  box-shadow: 10px 14px 0 rgba(30, 47, 122, .14); border: 3px solid #E6E2D8; }
+.polaroid img { width: 640px; height: 460px; object-fit: cover; display: block; }
+.cbox { width: 860px; padding: 40px 44px; text-align: center; }
+.cbox .kw { display: inline-block; margin-top: 18px; padding: 10px 50px; border-radius: 80px; background: var(--ink);
+  color: #fff; font-weight: 800; font-size: 104px; letter-spacing: 2px; }
+/* cast */
+.char { position: absolute; width: 420px; height: 420px; transform-origin: 50% 100%; }
+.char svg { width: 100%; height: 100%; overflow: visible; }
+.bubble { position: absolute; background: #fff; border: 5px solid var(--ink); border-radius: 40px 36px 44px 32px;
+  padding: 16px 26px 20px; font-weight: 700; font-size: 40px; line-height: 1.18; box-shadow: 8px 10px 0 rgba(30, 47, 122, .12); }
+.bubble .tail { position: absolute; width: 46px; height: 46px; background: #fff; border-left: 5px solid var(--ink);
+  border-bottom: 5px solid var(--ink); }
+.bubble .w { position: relative; }
+.bubble .w.on::before { content: ""; position: absolute; left: -6px; right: -6px; top: 14%; bottom: 4%; z-index: -1;
+  background: var(--marker); border-radius: 8px; }
+.bubble .w.later { opacity: .32; }
+.bubble .w.key { color: #fff; background: var(--accent, var(--red)); border-radius: 8px; padding: 0 8px; }
+/* cover (thumbnail): everything that matters sits inside the 3:4 grid crop, y 240–1680 */
+.ctitle { position: absolute; left: 110px; right: 80px; top: 430px; font: 900 132px/1.02 "Inter"; letter-spacing: -2px; }
+.ctitle .row { display: block; }
+.ctag { position: absolute; left: 104px; top: 320px; background: var(--red); color: #fff; font: 900 58px/1 "Inter";
+  padding: 14px 30px; border-radius: 16px; transform: rotate(-4deg); box-shadow: 8px 8px 0 rgba(10, 13, 26, .18); }
+.bubble .name { position: absolute; top: -36px; left: 26px; font: 28px "Kalam"; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div id="cam"><div id="paper"></div><div id="margin"></div><div id="doodles"></div>
+<div id="stage"></div>
+<div id="cast"></div><div id="desk"><div class="handle">__HANDLE__ <i>__TAGLINE__</i> <b>__L_FOLLOW__</b></div></div></div>
+<div id="brand"><img src="__LOGO__"><span>__BRAND_A__</span><b>__BRAND_B__</b></div>
+<div id="series"></div>
+<script>
+const TL = /*TL*/null;
+const $ = (s, el = document) => el.querySelector(s);
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const eo = p => 1 - Math.pow(1 - clamp(p), 3);
+const eob = p => { p = clamp(p); const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ACC = { "#FF4D4D": "var(--red)", "#2BD67B": "var(--green)", "#FFB020": "var(--orange)", "#B36BFF": "var(--purple)", "#4DA3FF": "var(--ink)" };
+const accentOf = sc => ACC[(sc.accent || "").toUpperCase()] || "var(--ink)";
+
+function marked(text) {  // "*word*" -> highlighter span
+  return esc(text).replace(/\*([^*]+)\*/g, '<span class="hl">$1</span>');
+}
+function pop(el, lt, at, dur = 0.38, dy = 50) {
+  if (!el) return;
+  const p = (lt - at) / dur;
+  el.style.opacity = clamp(p * 2.2);
+  el.style.transform = (el.dataset.base || "") + ` translateY(${(1 - eo(p)) * dy}px) scale(${0.86 + 0.14 * eob(p)})`;
+}
+const key = (L, i, off = 0) => L[Math.min(i, L.length - 1)][0] + off;
+
+/* ---------------------------------------------------------------- visuals: build once, animate by time */
+const V = {
+  kinetic(sc) {
+    const ln = sc.lines[0];
+    return `<div class="kin">${ln.words.map((w, i) => `<span data-i="${i}" class="${ln.hiw.includes(i) ? "hl" : ""}">${esc(w)}</span>`).join(" ")}</div>`;
+  },
+  headline(sc) {
+    const v = sc.visual;
+    return `<div class="card" style="width:860px;padding:44px 48px;position:relative" data-base="rotate(-2deg)">
+      <div class="tape" style="left:-30px;top:-20px;transform:rotate(-24deg)"></div>
+      <div class="tape" style="right:-30px;top:-20px;transform:rotate(22deg)"></div>
+      <div class="note">${esc(v.label || "news")}${v.emoji ? " " + esc(v.emoji) : ""}</div>
+      <div style="font-weight:800;font-size:62px;line-height:1.1;margin-top:8px">${esc(v.text)}</div></div>`;
+  },
+  big_emoji(sc) { return `<div class="emoji">${esc(sc.visual.emoji || "🤔")}</div>`; },
+  phone_msg(sc) {
+    const v = sc.visual;
+    return `<div style="position:relative"><div class="phone"><div class="note" style="text-align:center;margin-bottom:22px">${esc(v.app || "SMS")}</div>
+      <div class="msg"><span class="from">${esc(v.sender || "Unknown")}</span>${esc(v.text)}</div></div>
+      ${v.stamp ? `<div class="stamp" style="right:-60px;top:250px">${esc(v.stamp)}</div>` : ""}</div>`;
+  },
+  lockscreen(sc) {
+    const v = sc.visual;
+    return `<div class="phone"><div style="text-align:center;font-weight:800;font-size:96px;line-height:1">${esc(v.time || "9:41")}</div>
+      <div class="note" style="text-align:center;font-size:28px;margin-bottom:22px">${esc(v.date || "")}</div>
+      ${(v.items || []).map((it, i) => `<div class="notif" data-n="${i}"><b>${esc(it.app)} · ${esc(it.title)}</b>${esc(it.text)}</div>`).join("")}</div>`;
+  },
+  myth_fact(sc) {
+    const v = sc.visual;
+    return `<div style="width:860px;position:relative">
+      <div class="card m1" style="padding:30px 40px;position:relative"><div class="note">__L_MYTH__</div>
+        <div style="font-weight:800;font-size:56px;line-height:1.1">${esc(v.claim)}</div>
+        <div class="strike" style="position:absolute;left:30px;top:56%;height:8px;background:var(--red);border-radius:4px"></div></div>
+      <div class="card m2" style="padding:30px 40px;margin-top:34px;border-color:var(--green)"><div class="note" style="color:var(--green)">__L_FACT__ ✓</div>
+        <div style="font-weight:800;font-size:56px;line-height:1.1">${esc(v.fact)}</div></div></div>`;
+  },
+  versus(sc) {
+    const v = sc.visual, side = (s, k) => `<div class="card side s-${k}"><div class="lbl">${esc(s.label)}</div><div class="val">${esc(s.value)}</div></div>`;
+    return `<div class="row2" style="position:relative">${side(v.left, "left")}${side(v.right, "right")}<div class="vs">vs</div></div>`;
+  },
+  bars(sc) {
+    const v = sc.visual, mx = Math.max(1, ...v.items.map(i => +i.value || 0));
+    return `<div class="bars"><div class="note" style="margin-left:260px;margin-bottom:10px">${esc(v.title)}</div>${v.items.map((it, i) =>
+      `<div class="bar-row"><div class="lab">${esc(it.label)}</div><div class="fill" data-w="${(it.value / mx) * 470}"></div>
+      <div class="num" data-v="${it.value}" data-u="${esc(v.unit || "")}"></div></div>`).join("")}</div>`;
+  },
+  counter(sc) {
+    const v = sc.visual;
+    return `<div style="text-align:center"><div class="big cnt" style="color:var(--accent)"></div>
+      <div class="note" style="font-size:40px;max-width:820px;margin:20px auto 0">${esc(v.label || "")}</div></div>`;
+  },
+  checklist(sc) {
+    return `<div class="list">${sc.visual.items.map((it, i) => `<div class="item" data-i="${i}"><div class="box"><span class="tick">✓</span></div>${esc(it)}</div>`).join("")}</div>`;
+  },
+  setting(sc) {
+    const v = sc.visual;
+    return `<div class="phone" style="width:600px;height:auto;padding-bottom:30px"><div class="note" style="text-align:center;margin-bottom:12px">${esc(v.path || "Settings")}</div>
+      ${(v.rows || []).map((r, i) => `<div class="srow${i === (v.on || 0) ? " hit" : ""}"><span>${esc(r)}</span><i class="tg"></i></div>`).join("")}</div>`;
+  },
+  terminal(sc) {
+    const v = sc.visual;
+    return `<div class="term"><div class="bar">● ● ●  ${esc(v.title || "terminal")}</div><div class="rows"></div>
+      <div class="res" style="color:#FF6B6B;font-weight:800;font-size:46px;margin-top:10px">${esc(v.result || "")}</div></div>`;
+  },
+  photo(sc) {
+    return sc.img ? `<div class="polaroid"><img src="${sc.img}"></div>` : `<div class="emoji">${esc(sc.emoji || "📱")}</div>`;
+  },
+  comment(sc) {
+    const v = sc.visual;
+    if (v.keyword) return `<div class="card cbox"><div style="font-weight:800;font-size:72px">${esc(TL.cta)}</div>
+      <div class="kw"></div><div class="note" style="margin-top:22px;font-size:40px">${esc(v.offer || "")}</div></div>`;
+    return `<div class="card cbox" style="text-align:left"><div class="note">__L_YOU__</div>
+      <div style="font-weight:800;font-size:60px;line-height:1.12;margin-top:6px">${esc(v.text)}</div></div>`;
+  },
+};
+V.breaking = V.headline;
+
+// open = scene 1: everything is already on frame 0, a scroller decides before anything could animate in
+function animVisual(el, sc, lt, open) {
+  const v = sc.visual, A = sc.A || {}, L = sc.L, t = v.type;
+  const root = el.firstElementChild;
+  if (t === "kinetic") {
+    el.querySelectorAll(".kin span").forEach(s => {
+      const at = +s.dataset.i ? A.words[+s.dataset.i] : -1;
+      pop(s, lt, open ? -1 : at, 0.22, 30);
+      if (s.classList.contains("hl")) s.style.setProperty("--p", eo((lt - at - 0.1) / 0.3));
+    });
+    return;
+  }
+  pop(root, lt, open ? -1 : 0.05);
+  if (t === "phone_msg") { const st = $(".stamp", el); if (st) { st.dataset.base = "rotate(-12deg)"; pop(st, lt, A.stamp ?? key(L, 1), 0.25, -40); } }
+  if (t === "lockscreen") el.querySelectorAll(".notif").forEach(n => pop(n, lt, (A.notifs || [])[+n.dataset.n] ?? 0.3, 0.3, -60));
+  if (t === "myth_fact") {
+    const s = $(".strike", el), w = $(".m1", el).offsetWidth - 60;
+    s.style.width = (w * eo((lt - (A.myth ?? 0.6)) / 0.35)) + "px";
+    pop($(".m2", el), lt, A.flip ?? key(L, 1));
+  }
+  if (t === "versus") {
+    const win = v.winner, p = eo((lt - (A.win ?? key(L, 1))) / 0.3);
+    if (win) { const w = $(".s-" + win, el), o = $(".s-" + (win === "left" ? "right" : "left"), el);
+      w.style.borderColor = p > 0 ? "var(--green)" : ""; w.style.transform = `scale(${1 + 0.06 * p})`; o.style.opacity = 1 - 0.55 * p; }
+  }
+  if (t === "setting") {  // off on frame 0 (that's the problem), on with line 2 (that's the fix)
+    const p = eo((lt - (A.flip ?? key(L, 1))) / 0.25), tg = $(".srow.hit .tg", el);
+    if (tg) { tg.style.setProperty("--on", p); tg.style.background = p > 0.5 ? "var(--green)" : ""; }
+  }
+  if (t === "bars") {  // scene 1 shows the full bars: a number has to be readable on frame 0
+    const g = open ? 1 : eo((lt - (A.grow ?? key(L, 1))) / 1.1);
+    el.querySelectorAll(".fill").forEach(f => f.style.width = (+f.dataset.w * g) + "px");
+    el.querySelectorAll(".num").forEach(n => n.textContent = g > 0 ? Math.round(+n.dataset.v * g).toLocaleString("en-IN") + n.dataset.u : "");
+  }
+  if (t === "counter") {
+    const c = $(".cnt", el), to = +v.to || 0, p = open ? 1 : clamp((lt - (A.count ?? 0.3)) / ((A.count_end ?? 1.7) - (A.count ?? 0.3)));
+    const val = to * Math.pow(eo(p), 1.4);
+    const fmt = n => v.format === "indian" ? Math.round(n).toLocaleString("en-IN") : Math.round(n).toLocaleString("en-US");
+    c.textContent = (v.prefix || "") + (!open && lt < (A.count ?? 0.3) ? fmt(to).replace(/\d/g, d => (Math.floor(lt * 24 + +d * 7) % 10)) : fmt(val)) + (v.suffix || "");
+    c.style.transform = `scale(${1 + 0.08 * Math.exp(-Math.max(0, lt - (A.count_end ?? 9)) * 8) * (lt > (A.count_end ?? 9))})`;
+  }
+  if (t === "checklist") el.querySelectorAll(".item").forEach(it => {
+    const i = +it.dataset.i, at = (A.ticks || A.stamps || [])[i] ?? key(L, i, 0.25);
+    pop(it, lt, i * 0.12, 0.3, 20);
+    const tk = $(".tick", it); tk.style.opacity = lt >= at ? 1 : 0; tk.style.transform = `scale(${lt >= at ? eob((lt - at) / 0.25) : 0})`;
+  });
+  if (t === "terminal") {
+    const rows = v.rows || [], res = A.result ?? key(L, 1, 0.1), end = Math.max(0.5, res - 0.15);
+    const total = rows.join("").length, n = Math.floor(total * clamp((lt - 0.15) / (end - 0.15)));
+    let left = n; $(".rows", el).innerHTML = rows.map(r => { const s = r.slice(0, Math.max(0, left)); left -= r.length; return esc(s); }).filter(Boolean).map(s => "&gt; " + s).join("<br>");
+    pop($(".res", el), lt, res, 0.25, 0);
+  }
+  if (t === "comment" && v.keyword) {
+    const at = (A.bubble ?? 0.25) + 0.3, n = Math.ceil(clamp((lt - at) / 0.6) * v.keyword.length);
+    $(".kw", el).textContent = `"${v.keyword.slice(0, n)}${n >= v.keyword.length ? '"' : (Math.floor(lt * 4) % 2 ? "|" : " ")}`;
+  }
+}
+
+/* ---------------------------------------------------------------- page dressing: series pill + floating doodles */
+$("#series").innerHTML = `<span>${esc(TL.series)}</span><span class="segs">` +
+  TL.scenes.map((_, i) => `<span class="seg" data-i="${i}"></span>`).join("") + "</span>";
+const DOODLE = {
+  star: c => `<path d="M0-22 6-6 22 0 6 6 0 22-6 6-22 0-6-6Z" fill="${c}" stroke="#1E2F7A" stroke-width="3"/>`,
+  dot: c => `<circle r="14" fill="${c}" stroke="#1E2F7A" stroke-width="3"/>`,
+  ring: c => `<circle r="16" fill="none" stroke="${c}" stroke-width="7"/>`,
+  plus: c => `<path d="M-16 0H16M0-16V16" stroke="${c}" stroke-width="8" stroke-linecap="round"/>`,
+};
+// kept to the edges and the gaps, never behind the heading, the visual or the bubble
+const SPOTS_D = [[60, 420, "star", "#FFE24D"], [1010, 470, "dot", "#FF4D4D"], [985, 640, "plus", "#4DA3FF"],
+  [55, 760, "ring", "#B36BFF"], [1020, 905, "star", "#2BD67B"], [70, 1010, "plus", "#FFB020"],
+  [600, 205, "dot", "#2BD67B"], [1035, 335, "ring", "#FFB020"]];
+$("#doodles").innerHTML = SPOTS_D.map(([x, y, k, c], i) =>
+  `<svg data-i="${i}" style="left:${x}px;top:${y}px" width="1" height="1">${DOODLE[k](c)}</svg>`).join("");
+function dressPage(t, si) {
+  document.querySelectorAll("#series .seg").forEach(s => s.classList.toggle("on", +s.dataset.i <= si));
+  document.querySelectorAll("#doodles svg").forEach(d => {
+    const i = +d.dataset.i;
+    d.style.transform = `translate(${Math.sin(t * 0.9 + i) * 10}px, ${Math.cos(t * 0.7 + i * 1.3) * 14}px) rotate(${Math.sin(t * 0.5 + i) * 25}deg)`;
+  });
+}
+
+/* ---------------------------------------------------------------- cast */
+const castEl = $("#cast");
+const SPOTS = TL.cast.length > 1
+  ? { [TL.cast[0]]: { x: -40, y: 1060, s: 540, flip: false, tail: 230 }, [TL.cast[1]]: { x: 580, y: 1060, s: 540, flip: true, tail: 850 } }
+  : { [TL.cast[0]]: { x: -70, y: 1000, s: 620, flip: false } };
+const ALL = TL.scenes.flatMap(s => s.lines);  // every spoken line in order: drives focus, hops and camera punches
+for (const id of TL.cast) {
+  const sp = SPOTS[id], d = document.createElement("div");
+  d.className = "char"; d.id = "c-" + id;
+  Object.assign(d.style, { left: sp.x + "px", top: sp.y + "px", width: sp.s + "px", height: sp.s + "px" });
+  d.innerHTML = TL.chars[id];
+  castEl.appendChild(d);
+}
+const bubble = document.createElement("div"); bubble.className = "bubble"; castEl.appendChild(bubble);
+function setLayer(svg, kind, name) {
+  svg.querySelectorAll(`[data-${kind}]`).forEach(g => g.style.display = g.dataset[kind] === name ? "" : "none");
+}
+const GEST = { neutral: ["hand", "point", "none", "pointLongArm"], happy: ["ok", "okLongArm", "waveLongArm"], shock: ["none"],
+  think: ["hand", "none"], danger: ["pointLongArm", "point"], cta: ["handPhone", "waveLongArm"] };
+
+/* ---------------------------------------------------------------- cover: one still built for the grid and the feed */
+window.cover = function () {
+  const C = TL.cover;
+  document.documentElement.style.setProperty("--accent", accentOf(TL.scenes[0]));
+  $("#series").style.display = "none";  // the cover has its own red tag
+  $("#stage").innerHTML = (C.tag ? `<div class="ctag">${esc(C.tag)}</div>` : "") +
+    `<div class="ctitle">${C.rows.map(r => `<span class="row">${marked(r)}</span>`).join("")}</div>`;
+  const ti = $(".ctitle");
+  ti.querySelectorAll(".hl").forEach(h => h.style.setProperty("--p", 1));
+  for (let fs = 132; ti.offsetHeight > 600 && fs > 70; fs -= 6) ti.style.fontSize = fs + "px";  // long titles shrink
+  bubble.style.opacity = 0;
+  TL.cast.forEach((id, i) => {
+    const el = $("#c-" + id), svg = $("svg", el), sp = SPOTS[id];
+    setLayer(svg, "lips", "shock"); setLayer(svg, "brows", "up");
+    setLayer(svg, "gesture", i === 0 ? "pointLongArm" : "none");
+    el.style.opacity = 1;
+    el.style.transform = `scaleX(${sp.flip ? -1 : 1})`;
+  });
+};
+
+/* ---------------------------------------------------------------- frame */
+let built = -1;
+window.render = function (t) {
+  const fi = Math.round(t * TL.fps);
+  let si = 0; TL.scenes.forEach((s, i) => { if (s.s0 <= t) si = i; });
+  const sc = TL.scenes[si], lt = t - sc.s0;
+  document.documentElement.style.setProperty("--accent", accentOf(sc));
+  // paper scrolls one ruled line per scene (feels like writing further down the page)
+  const prevShift = si * 64, sh = prevShift - 64 * (1 - eo(lt / 0.45)) * (si > 0);
+  $("#paper").style.transform = `translateY(${-(sh % 640)}px)`;
+  // camera: every new line punches in or eases back out, so no frame is ever static for long
+  let gi = -1; ALL.forEach((l, i) => { if (t >= l.a - 0.05) gi = i; });
+  const cur = ALL[gi], prev = ALL[gi - 1], lp = cur ? eo((t - cur.a + 0.05) / 0.3) : 0;
+  const zTo = gi % 2 ? 1.045 : 1, zFrom = gi > 0 ? (gi % 2 ? 1 : 1.045) : 1;
+  $("#cam").style.transform = `scale(${zFrom + (zTo - zFrom) * lp})`;
+  dressPage(t, si);
+  const stage = $("#stage");
+  if (built !== si) {
+    built = si;
+    const head = sc.visual.type === "kinetic" ? "" : `<div class="head">${(sc.card || []).map(r => `<span class="row">${marked(r)}</span>`).join("")}</div>`;
+    stage.innerHTML = head + `<div class="vis${sc.visual.type === "kinetic" ? " k" : ""}">${(V[sc.visual.type] || V.big_emoji)(sc)}</div>`;
+    const vis = stage.querySelector(".vis");
+    if (sc.visual.type === "kinetic") {
+      vis.style.cssText = "position:absolute;inset:0";
+      const k = $(".kin", vis);  // long hooks shrink so they never run into the characters' heads
+      for (let fs = 138; k.offsetTop + k.offsetHeight > 1030 && fs > 76; fs -= 6) k.style.fontSize = fs + "px";
+    }
+    else {  // fit the visual into its zone (the duo layout leaves less room above the speech bubble)
+      const zh = TL.cast.length > 1 ? 380 : 460, root = vis.firstElementChild;
+      vis.style.height = zh + "px";
+      vis.insertAdjacentHTML("beforebegin", `<div class="backdrop" style="top:${530 - 20}px;height:${zh + 40}px"></div>`);
+      const f = Math.min(1, 900 / root.offsetWidth, zh / root.offsetHeight);
+      root.dataset.base = (root.dataset.base || "") + ` scale(${f.toFixed(3)})`;
+    }
+  }
+  const head = $(".head", stage);
+  if (head) {
+    head.querySelectorAll(".row").forEach((r, i) => pop(r, lt, si ? 0.02 + i * 0.07 : -1, 0.32, 40));
+    head.querySelectorAll(".hl").forEach(h => h.style.setProperty("--p", si ? eo((lt - 0.35) / 0.35) : 1));
+  }
+  animVisual($(".vis", stage), sc, lt, si === 0);
+  if (sc.visual.type !== "kinetic") $(".vis", stage).style.translate = `0 ${Math.sin(t * 1.7) * 7}px`;  // never a dead frame
+  // who speaks now
+  let li = si ? -1 : 0; sc.lines.forEach((l, i) => { if (t >= l.a - 0.05) li = i; });
+  const hook = si === 0 && li === 0;  // the hook line is readable in full on frame 0, before the voice starts
+  const ln = li >= 0 ? sc.lines[li] : null, speaker = ln ? ln.who : TL.cast[0];
+  for (const id of TL.cast) {
+    const el = $("#c-" + id), svg = $("svg", el), sp = SPOTS[id];
+    const talk = id === speaker && ln && t < ln.b + 0.05 ? (TL.talk[id][fi] || 0) : 0;
+    const mood = sc.mood[id] || "neutral";
+    setLayer(svg, "lips", mood === "shock" && talk < 0.25 ? "shock" : talk > 0.55 ? "open" : talk > 0.18 ? "mid" : mood === "happy" ? "smile" : "closed");
+    setLayer(svg, "brows", mood === "shock" ? "up" : mood === "danger" || mood === "think" ? "worried" : (talk > 0.6 ? "up" : "neutral"));
+    const g = GEST[mood] || GEST.neutral;
+    setLayer(svg, "gesture", g[(li < 0 ? 0 : li + si) % g.length]);
+    const enter = si === 0 ? eob((t + 0.35) / 0.5) : 1;
+    const bob = Math.sin(t * 3 + (id === TL.cast[0] ? 0 : 1.7)) * 6 + talk * -10;
+    // focus: the speaker grows to full size, the listener shrinks back and fades a little
+    const on = l => (l ? l.who === id : id === TL.cast[0]) ? 1 : 0;
+    const focus = TL.cast.length < 2 ? 1 : on(prev) + (on(cur) - on(prev)) * (cur ? lp : 1);
+    const since = cur && cur.who === id ? t - cur.a + 0.05 : 9;
+    const hop = -38 * Math.sin(Math.PI * clamp(since / 0.32));  // a little jump when they start talking
+    const shake = mood === "shock" ? 3.5 * Math.sin(t * 45) * clamp(1 - since / 0.5) : 0;
+    el.style.filter = focus < 1 ? `saturate(${0.35 + 0.65 * focus}) brightness(${1.12 - 0.12 * focus})` : "";
+    el.style.transform = `translateY(${bob + hop + (1 - enter) * 300}px) rotate(${talk * 2 * Math.sin(t * 9) + shake}deg) ` +
+      `scale(${0.84 + 0.16 * focus}) scaleX(${sp.flip ? -1 : 1})`;
+  }
+  // speech bubble = caption
+  if (!ln || sc.visual.type === "kinetic" || t > ln.b + 0.4) { bubble.style.opacity = 0; return; }
+  const sp = SPOTS[ln.who] || SPOTS[TL.cast[0]];
+  if (bubble.dataset.k !== si + "." + li) {
+    bubble.dataset.k = si + "." + li;
+    bubble.innerHTML = (TL.cast.length > 1 ? `<span class="name">${esc(TL.names[ln.who] || ln.who)}</span>` : "") +
+      ln.words.map((w, i) => `<span class="w${ln.hiw.includes(i) ? " key" : ""}" data-i="${i}">${esc(w)}</span>`).join(" ") + `<span class="tail"></span>`;
+    const tail = $(".tail", bubble);
+    if (TL.cast.length > 1) {  // bubble above the pair, tail pointing down at the speaker
+      Object.assign(bubble.style, { left: "110px", width: "860px", top: "", bottom: (1920 - 1095) + "px" });
+      Object.assign(tail.style, { left: (sp.tail - 110 - 23) + "px", bottom: "-28px", top: "", transform: "rotate(-45deg)" });
+    } else {  // single host: bubble right of the character, tail pointing at her
+      Object.assign(bubble.style, { left: "480px", width: "520px", bottom: "", top: "1030px" });
+      Object.assign(tail.style, { left: "-28px", top: "70px", bottom: "", transform: "rotate(45deg)" });
+    }
+  }
+  bubble.style.opacity = (hook ? 1 : clamp((t - ln.a + 0.08) / 0.12)) * (1 - clamp((t - ln.b - 0.25) / 0.15));
+  bubble.style.transform = `scale(${hook ? 1 : 0.94 + 0.06 * eob((t - ln.a + 0.08) / 0.25)})`;
+  bubble.style.transformOrigin = TL.cast.length > 1 ? `${sp.tail - 110}px 100%` : "0 30%";
+  bubble.querySelectorAll(".w").forEach(w => {
+    const i = +w.dataset.i, a = ln.wt[i], b = ln.wt[i + 1];
+    w.classList.toggle("on", t >= a && t < b);
+    w.classList.toggle("later", t < a && !hook);
+  });
+};
+</script>
+</body>
+</html>
