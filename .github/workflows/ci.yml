@@ -23,7 +23,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45      # apt mirrors are sometimes slow: FFmpeg alone has taken 15 min
     env:
       PYTHONUTF8: "1"
     steps:
